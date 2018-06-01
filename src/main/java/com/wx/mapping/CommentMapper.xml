@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wx.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.wx.model.Comment" >
+    <id column="commentId" property="commentid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="commentMsg" property="commentmsg" jdbcType="VARCHAR" />
+    <result column="commentTime" property="commenttime" jdbcType="TIMESTAMP" />
+    <result column="commentDel" property="commentdel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commentId, UserId, commentMsg, commentTime, commentDel
+  </sql>
+  
+  <!-- begin sql -->
+  
+  <select id="selectAllComment" resultMap="BaseResultMap">
+  	select *from myweb_comment where commentDel=0
+  </select>
+  
+  <!-- end sql -->
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from myweb_comment
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from myweb_comment
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wx.model.Comment" >
+    insert into myweb_comment (commentId, UserId, commentMsg, 
+      commentTime, commentDel)
+    values (#{commentid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{commentmsg,jdbcType=VARCHAR}, 
+      #{commenttime,jdbcType=TIMESTAMP}, #{commentdel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wx.model.Comment" >
+    insert into myweb_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        commentId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="commentmsg != null" >
+        commentMsg,
+      </if>
+      <if test="commenttime != null" >
+        commentTime,
+      </if>
+      <if test="commentdel != null" >
+        commentDel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="commentmsg != null" >
+        #{commentmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="commenttime != null" >
+        #{commenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentdel != null" >
+        #{commentdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wx.model.Comment" >
+    update myweb_comment
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="commentmsg != null" >
+        commentMsg = #{commentmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="commenttime != null" >
+        commentTime = #{commenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentdel != null" >
+        commentDel = #{commentdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wx.model.Comment" >
+    update myweb_comment
+    set UserId = #{userid,jdbcType=INTEGER},
+      commentMsg = #{commentmsg,jdbcType=VARCHAR},
+      commentTime = #{commenttime,jdbcType=TIMESTAMP},
+      commentDel = #{commentdel,jdbcType=INTEGER}
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wx.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.wx.model.User">
+    <id column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="userPassword" jdbcType="VARCHAR" property="userpassword" />
+    <result column="userAddtime" jdbcType="TIMESTAMP" property="useraddtime" />
+    <result column="userType" jdbcType="INTEGER" property="usertype" />
+    <result column="userDel" jdbcType="INTEGER" property="userdel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userId, userName, userPassword, userAddtime, userType, userDel
+  </sql>
+  
+  <!-- begin sql  -->
+  
+  <select id="loginUser" parameterType="map" resultMap="BaseResultMap">
+  	select * from myweb_user where userName=#{userName} 
+  		and userPassword=#{userPassword} and userDel=0
+  </select>
+  
+  <!-- end sql -->
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from myweb_user
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from myweb_user
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wx.model.User">
+    insert into myweb_user (userId, userName, userPassword, 
+      userAddtime, userType, userDel
+      )
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
+      #{useraddtime,jdbcType=TIMESTAMP}, #{usertype,jdbcType=INTEGER}, #{userdel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wx.model.User">
+    insert into myweb_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="userpassword != null">
+        userPassword,
+      </if>
+      <if test="useraddtime != null">
+        userAddtime,
+      </if>
+      <if test="usertype != null">
+        userType,
+      </if>
+      <if test="userdel != null">
+        userDel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null">
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddtime != null">
+        #{useraddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="userdel != null">
+        #{userdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wx.model.User">
+    update myweb_user
+    <set>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null">
+        userPassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddtime != null">
+        userAddtime = #{useraddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usertype != null">
+        userType = #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="userdel != null">
+        userDel = #{userdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wx.model.User">
+    update myweb_user
+    set userName = #{username,jdbcType=VARCHAR},
+      userPassword = #{userpassword,jdbcType=VARCHAR},
+      userAddtime = #{useraddtime,jdbcType=TIMESTAMP},
+      userType = #{usertype,jdbcType=INTEGER},
+      userDel = #{userdel,jdbcType=INTEGER}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

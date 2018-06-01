@@ -1,0 +1,41 @@
+{
+	"button":[
+	{
+		"name":"测试页面",
+		"sub_button":[{
+			"type":"view",
+			"name":"测试主页",
+			"url":"reUrl/test/wxIndex"
+		},{
+			"type":"view",
+			"name":"获取用户信息1",
+			"url":"reUrl/test/h1"
+		},{
+			"type":"view",
+			"name":"获取用户信息2",
+			"url":"reUrl/test/h2"
+		}]
+	},
+	{
+		"name":"功能界面",
+		"sub_button":[{
+			"type":"view",
+			"name":"扫码",
+			"url":"reUrl/test/scan"
+		},{
+			"type":"view",
+			"name":"获取地理位置",
+			"url":"reUrl/test/location"
+		},{
+			"type":"view",
+			"name":"二维码生成",
+			"url":"reUrl/test/toQRCode"
+		},
+		{
+			"type":"view",
+			"name":"待定",
+			"url":"reUrl/test/temp"
+		}]
+	}]
+	
+}
